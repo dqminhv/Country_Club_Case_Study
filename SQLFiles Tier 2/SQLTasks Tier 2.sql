@@ -173,6 +173,17 @@ ORDER BY m1.memid
 
 /* Q12: Find the facilities with their usage by member, but not guests */
 
+SELECT sub2.facid, f.name AS facility_name
+FROM
+(SELECT sub.facid
+FROM (
+    SELECT b.facid 
+    FROM Bookings AS b
+	WHERE b.memid <> 0
+	GROUP BY b.memid) AS sub
+GROUP BY sub.facid) AS sub2
+INNER JOIN Facilities AS f
+ON sub2.facid = f.facid
 
 /* Q13: Find the facilities usage by month, but not guests */
 
