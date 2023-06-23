@@ -147,6 +147,21 @@ QUESTIONS:
 The output of facility name and total revenue, sorted by revenue. Remember
 that there's a different cost for guests and members! */
 
+SELECT * FROM
+(SELECT subquery.facility_name, SUM(subquery.booking_cost) AS total_rev
+FROM (SELECT  
+    f.name AS facility_name,
+    CASE WHEN b.memid = 0 THEN f.guestcost*b.slots
+    	ELSE f.membercost*b.slots END
+    	AS booking_cost
+FROM Bookings AS b
+INNER JOIN Members AS m ON b.memid = m.memid
+INNER JOIN Facilities AS f ON b.facid = f.facid) AS subquery
+GROUP BY subquery.facility_name) AS subquery2
+WHERE subquery2.total_rev > 1000
+ORDER BY subquery2.total_rev 
+
+
 /* Q11: Produce a report of members and who recommended them in alphabetic surname,firstname order */
 
 
