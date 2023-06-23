@@ -163,7 +163,14 @@ ORDER BY subquery2.total_rev
 
 
 /* Q11: Produce a report of members and who recommended them in alphabetic surname,firstname order */
-
+SELECT m1.memid, CONCAT(m1.surname, ", " ,m1.firstname) AS member_name, m1.recommendedby, sub1.recommendedby_name
+FROM Members AS m1
+LEFT JOIN 
+	(SELECT m2.recommendedby, CONCAT(m2.surname, ", " ,m2.firstname) AS recommendedby_name
+     FROM Members AS m2 
+     WHERE m2.recommendedby IS NOT NULL) AS sub1
+ON m1.memid = sub1.recommendedby
+ORDER BY m1.surname
 
 /* Q12: Find the facilities with their usage by member, but not guests */
 
