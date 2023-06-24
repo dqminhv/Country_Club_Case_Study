@@ -136,6 +136,21 @@ ORDER BY booking_cost DESC
 
 /* Q9: This time, produce the same result as in Q8, but using a subquery. */
 
+SELECT 
+	f.name AS Facility, 
+    concat(m.firstname, ' ', m.surname) AS cust_name, 
+    CASE WHEN b.memid = 0 THEN f.guestcost*b.slots
+    	ELSE f.membercost*b.slots END
+    	AS booking_cost
+FROM Bookings as b 
+INNER JOIN Facilities AS f USING(facid) 
+INNER JOIN Members AS m USING (memid) 
+WHERE starttime LIKE '2012-09-14%' AND bookid IN 
+	(SELECT bookid 
+     FROM Bookings 
+     WHERE (CASE WHEN b.memid = 0 THEN f.guestcost*b.slots
+    	ELSE f.membercost*b.slots END) > 30) 
+ORDER BY booking_cost DESC;
 
 /* PART 2: SQLite
 
