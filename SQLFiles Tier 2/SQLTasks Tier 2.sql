@@ -170,7 +170,7 @@ SELECT m1.memid, CONCAT(m1.surname, ", " ,m1.firstname) AS member_name,
 FROM Members AS m1
 INNER JOIN Members AS m2
 ON CAST(m1.recommendedby AS INT) = m2.memid
-ORDER BY m1.memid
+ORDER BY member_name
 
 
 /* Q12: Find the facilities with their usage by member, but not guests */
