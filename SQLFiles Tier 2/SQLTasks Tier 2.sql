@@ -173,6 +173,11 @@ ON CAST(m1.recommendedby AS INT) = m2.memid
 ORDER BY member_name
 
 
+/*
+Q12 means that creating a query that determine the "facility usage" by members not by guest means how many times facility has been used by members(tip : use "slot "column)
+Q13 means that creating a query that determine the "facility usage" by members not by guest but by "Month"(tip: you have to extract month from "starttime "column) (edited) 
+*/
+
 /* Q12: Find the facilities with their usage by member, but not guests */
 
 SELECT facid, f.name AS facility_name
