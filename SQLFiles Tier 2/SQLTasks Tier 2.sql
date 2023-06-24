@@ -189,3 +189,8 @@ WHERE facid NOT IN
 
 /* Q13: Find the facilities usage by month, but not guests */
 
+SELECT b.facid, f.name AS facility_name, EXTRACT(MONTH FROM starttime) as month, SUM(slots) AS useage
+FROM Bookings AS b
+INNER JOIN Facilities AS f USING (facid)
+WHERE memid <> 0
+GROUP BY b.facid, month
