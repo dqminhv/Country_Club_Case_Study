@@ -164,7 +164,9 @@ ORDER BY subquery2.total_rev
 
 /* Q11: Produce a report of members and who recommended them in alphabetic surname,firstname order */
 
-SELECT m1.memid, CONCAT(m1.surname, ", " ,m1.firstname) AS member_name, CONCAT(m2.surname, ", " ,m2.firstname) AS recommendedby_name
+SELECT m1.memid, CONCAT(m1.surname, ", " ,m1.firstname) AS member_name, 
+	CASE WHEN m2.surname = "GUEST" THEN ""
+    		ELSE CONCAT(m2.surname, ", " ,m2.firstname) END AS recommendedby_name
 FROM Members AS m1
 INNER JOIN Members AS m2
 ON CAST(m1.recommendedby AS INT) = m2.memid
